@@ -4,22 +4,26 @@
 
     let projects = [
         { 
+            id: 1,
             name: "DaalBot",
             category: "active",
-            id: 1,
-            description: "A Discord bot that I'm working on."
+            description: "A Discord bot that I'm working on.",
+            source: "https://github.com/NotPiny/DaalBot",
+            href: "https://daalbot.xyz"
         },
         {
-            name: "Project 2",
-            category: "paused",
             id: 2,
-            description: "A project that I'm working on."
+            name: "None",
+            category: "paused",
+            description: "There are no projects here.",
+            source: "NSET"
         },
         { 
-            name: "Project 3",
-            category: "discontinued",
             id: 3,
-            description: "e"
+            name: "None",
+            category: "discontinued",
+            description: "There are no projects here.",
+            source: "NSET"
         },
     ];
 </script>
@@ -33,10 +37,12 @@
     <div class="project-item-box">
         <h3 id="project-item-name">{project.name}</h3>
         <p id="project-item-description">{project.description}</p>
-        <a class="project-item-view bl" href="https://github.com/NotPiny/DaalBot">
+        {#if project.source !== "NSET"}
+        <a class="project-item-view bl" href={project.source}>
             <img alt="View project source" src={githubIcon} style="width: 32px; height: 32px">
         </a>
-        <a class="project-item-view br" href="/projects?project={project.id}">
+        {/if}
+        <a class="project-item-view br" href={project.href ? project.href : `/projects?project=${project.id}`}>
             <img alt="View project details" src={linkIcon} style="width: 32px; height: 32px">
         </a>
     </div>
@@ -45,18 +51,45 @@
 <hr/>
 
 <h2>Paused</h2>
-<ul>
+<hr/>
+<div class="project-item-list">
     {#each projects.filter(project => project.category === "paused") as project}
-    <li>{project.name}</li>
+    <div class="project-item-box">
+        <h3 id="project-item-name">{project.name}</h3>
+        <p id="project-item-description">{project.description}</p>
+        {#if project.source !== "NSET"}
+        <a class="project-item-view bl" href={project.source}>
+            <img alt="View project source" src={githubIcon} style="width: 32px; height: 32px">
+        </a>
+        {/if}
+        <a class="project-item-view br" href="/projects?project={project.id}">
+            <img alt="View project details" src={linkIcon} style="width: 32px; height: 32px">
+        </a>
+    </div>
     {/each}
-</ul>
+</div>
+<hr/>
 
 <h2>Discontinued</h2>
-<ul>
+<hr/>
+
+<div class="project-item-list">
     {#each projects.filter(project => project.category === "discontinued") as project}
-    <li>{project.name}</li>
+    <div class="project-item-box">
+        <h3 id="project-item-name">{project.name}</h3>
+        <p id="project-item-description">{project.description}</p>
+        {#if project.source !== "NSET"}
+        <a class="project-item-view bl" href={project.source}>
+            <img alt="View project source" src={githubIcon} style="width: 32px; height: 32px">
+        </a>
+        {/if}
+        <a class="project-item-view br" href="/projects?project={project.id}">
+            <img alt="View project details" src={linkIcon} style="width: 32px; height: 32px">
+        </a>
+    </div>
     {/each}
-</ul>
+</div>
+<hr/>
 
 <style>
     .project-item-box {
@@ -78,6 +111,14 @@
         position: absolute;
 
         margin: 10px;
+    }
+
+    h1 {
+        font-weight: bolder;
+    }
+
+    h2 {
+        font-weight: bold;
     }
 
     .bl {

@@ -3,6 +3,11 @@
 	import './styles.css';
 </script>
 
+<svelte:head>
+	<title>Piny - Unknown</title>
+	<meta name="description" content="Changes are if this appearing in your embed its a 404 otherwise no clue how you got this"/>
+</svelte:head>
+
 <div class="app">
 	<Header />
 
