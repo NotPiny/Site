@@ -14,13 +14,11 @@
 		<Typewriter
 			texts={[
 				"Hello I'm Piny",
-				"I am a Javascript developer",
 				"I can do fullstack javascript",
 				"I am currently learning Svelte (and made this site with it :D)",
 				"I can do some other stuff too",
 				"Like HTML, CSS, Bash, Java and a tiny bit of Python",
 				"Hello I'm Piny",
-				"I am a Javascript developer",
 				"I can do fullstack javascript",
 				"I am currently learning Svelte (and made this site with it :D)",
 				"I can do some other stuff too",
@@ -37,6 +35,12 @@
 			]}
 		/>
 	</pre>
+
+	<h2>Links:</h2>
+	<div class="link-section">
+		<a href="https://discord.com/users/900126154881646634">Discord</a>
+		<a href="https://github.com/NotPiny">Github</a>
+	</div>
 </section>
 
 <style>
@@ -60,5 +64,24 @@
 		align-items: center;
 
 		font-size: 1.5rem;
+	}
+
+	.link-section {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		width: 100%;
+	}
+
+	.link-section a {
+		margin: 0.25rem;
+		border-radius: 0.5rem;
+
+		background-color: #aa3bad;
+		color: white;
+
+		padding: 0.5rem 1rem;
 	}
 </style>

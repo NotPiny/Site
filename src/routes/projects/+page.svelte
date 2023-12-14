@@ -1,6 +1,7 @@
 <script>
     import linkIcon from "$lib/images/link.svg";
     import githubIcon from "$lib/images/github.svg";
+    import { browser } from "$app/environment";
 
     let projects = [
         { 
@@ -13,20 +14,43 @@
         },
         {
             id: 2,
+            name: "piny.dev",
+            category: "active",
+            description: "This website your on right now.",
+            source: "https://github.com/NotPiny/Site",
+            href: "https://piny.dev"
+        },
+        {
+            id: 3,
             name: "None",
             category: "paused",
             description: "There are no projects here.",
             source: "NSET"
         },
-        { 
-            id: 3,
+        {
+            id: 4,
             name: "None",
             category: "discontinued",
             description: "There are no projects here.",
             source: "NSET"
         },
     ];
+
+    if (browser) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const project = urlParams.get("project");
+
+        if (project) {
+            alert(`This does nothing rn lol. Project: ${project}`)
+            window.location.href = "/projects";
+        }
+    }
 </script>
+
+<svelte:head>
+    <title>Piny - Projects</title>
+    <meta name="description" content="A list of all my projects"/>
+</svelte:head>
 
 <h1>Projects</h1>
 
@@ -92,6 +116,13 @@
 <hr/>
 
 <style>
+    .project-item-list {
+        display: grid;
+
+        /* 5 Wide */
+        grid-template-columns: repeat(3, 1fr);
+    }
+
     .project-item-box {
         border: 5px solid rgb(25, 25, 25);
         background-color: rgb(32, 32, 32);

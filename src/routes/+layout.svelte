@@ -6,6 +6,8 @@
 <svelte:head>
 	<title>Piny - Unknown</title>
 	<meta name="description" content="Changes are if this appearing in your embed its a 404 otherwise no clue how you got this"/>
+
+	<link rel="icon" href="https://media.piny.dev/Piny.png"/>
 </svelte:head>
 
 <div class="app">
