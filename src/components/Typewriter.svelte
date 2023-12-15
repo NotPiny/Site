@@ -5,13 +5,18 @@
      * @type {string[]}
     */
     export let texts = [];
+
+    /**
+     * @type {number}
+    */
+    export let externalDelay = 100;
     let currentText = '';
     let currentIndex = 0;
     let isReversed = false;
 
     const typeWriter = () => {
         const text = texts[currentIndex];
-        const delay = isReversed ? 50 : 100;
+        const delay = isReversed ? externalDelay / 2 : externalDelay;
 
         if (!isReversed) {
             currentText = text.slice(0, currentText.length + 1);

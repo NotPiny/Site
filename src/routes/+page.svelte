@@ -1,5 +1,13 @@
 <script>
+    import { browser } from "$app/environment";
 	import Typewriter from "../components/Typewriter.svelte";
+
+	let speed = 100;
+
+	if (browser) {
+		const urlParams = new URLSearchParams(window.location.search);
+		speed = parseInt(urlParams.get('speed') ?? '100');
+	}
 </script>
 
 <svelte:head>
@@ -12,6 +20,7 @@
 
 	<pre>
 		<Typewriter
+			externalDelay={speed}
 			texts={[
 				"Hello I'm Piny",
 				"I can do fullstack javascript",
@@ -23,7 +32,7 @@
 				"I am currently learning Svelte (and made this site with it :D)",
 				"I can do some other stuff too",
 				"Like HTML, CSS, Bash, Java and a tiny bit of Python",
-				"OwO",
+				"<b>OwO</b>",
 				"What's this?",
 				"Why are you still here?",
 				"Well if you are still reading this",
