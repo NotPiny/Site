@@ -9,31 +9,33 @@
             name: "DaalBot",
             category: "active",
             description: "A Discord bot that I'm working on.",
-            source: "https://github.com/NotPiny/DaalBot",
+            source: "https://github.com/DaalBot/Discord",
             href: "https://daalbot.xyz"
         },
         {
             id: 2,
             name: "piny.dev",
-            category: "active",
+            category: "paused",
             description: "This website your on right now.",
             source: "https://github.com/NotPiny/Site",
             href: "https://piny.dev"
         },
         {
             id: 3,
-            name: "None",
+            name: "CSVMan",
             category: "paused",
-            description: "There are no projects here.",
-            source: "NSET"
+            description: "A CSV manager for NodeJS.",
+            source: "https://github.com/NotPiny/CSVMan",
+            href: "https://www.npmjs.com/package/@npiny/csvman"
         },
         {
             id: 4,
-            name: "None",
-            category: "discontinued",
-            description: "There are no projects here.",
-            source: "NSET"
-        },
+            name: "PinyGames",
+            category: "active",
+            description: "A collection of games that I'm working on.",
+            source: "https://github.com/NotPiny/GamesSite",
+            href: "https://games.piny.dev"
+        }
     ];
 
     if (browser) {
@@ -43,6 +45,23 @@
         if (project) {
             alert(`This does nothing rn lol. Project: ${project}`)
             window.location.href = "/projects";
+        }
+    }
+
+    /**
+     * @param {number} id
+     */
+    async function projectClicked(id) {
+        // Expand out the project box using a animation and then redirect to the project page.
+        if (browser) {
+            const projectBox = document.getElementById(`project-box-${id}`);
+            if (!projectBox) return;
+
+            projectBox.style.animation = "expand 0.5s ease-in-out forwards";
+
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            window.location.href = `/projects/${id}`;
         }
     }
 </script>
@@ -57,8 +76,10 @@
 <h2>Active</h2>
 <hr/>
 <div class="project-item-list">
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
     {#each projects.filter(project => project.category === "active") as project}
-    <div class="project-item-box">
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div class="project-item-box" on:click={() => {projectClicked(project.id)}} id="project-box-{project.id}"> 
         <h3 id="project-item-name">{project.name}</h3>
         <p id="project-item-description">{project.description}</p>
         {#if project.source !== "NSET"}
@@ -71,6 +92,13 @@
         </a>
     </div>
     {/each}
+
+    {#if projects.filter(project => project.category === "active").length === 0}
+    <div class="project-item-box">
+        <h3 id="project-item-name">None</h3>
+        <p id="project-item-description">There are no projects here.</p>
+    </div>
+    {/if}
 </div>
 <hr/>
 
@@ -86,11 +114,18 @@
             <img alt="View project source" src={githubIcon} style="width: 32px; height: 32px">
         </a>
         {/if}
-        <a class="project-item-view br" href="/projects?project={project.id}">
+        <a class="project-item-view br" href={project.href ? project.href : `/projects?project=${project.id}`}>
             <img alt="View project details" src={linkIcon} style="width: 32px; height: 32px">
         </a>
     </div>
     {/each}
+
+    {#if projects.filter(project => project.category === "paused").length === 0}
+    <div class="project-item-box">
+        <h3 id="project-item-name">None</h3>
+        <p id="project-item-description">There are no projects here.</p>
+    </div>
+    {/if}
 </div>
 <hr/>
 
@@ -107,11 +142,18 @@
             <img alt="View project source" src={githubIcon} style="width: 32px; height: 32px">
         </a>
         {/if}
-        <a class="project-item-view br" href="/projects?project={project.id}">
+        <a class="project-item-view br" href={project.href ? project.href : `/projects?project=${project.id}`}>
             <img alt="View project details" src={linkIcon} style="width: 32px; height: 32px">
         </a>
     </div>
     {/each}
+
+    {#if projects.filter(project => project.category === "discontinued").length === 0}
+    <div class="project-item-box">
+        <h3 id="project-item-name">None</h3>
+        <p id="project-item-description">There are no projects here.</p>
+    </div>
+    {/if}
 </div>
 <hr/>
 
