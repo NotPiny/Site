@@ -8,6 +8,9 @@
 		const urlParams = new URLSearchParams(window.location.search);
 		speed = parseInt(urlParams.get('speed') ?? '100');
 	}
+
+	import LinuxIcon from "$lib/images/linux.svg";
+	import VSCodeIcon from "$lib/images/vscode.svg";
 </script>
 
 <svelte:head>
@@ -40,18 +43,41 @@
 				"Or check out my projects (/projects)",
 				"Alright, I'm done now",
 				"I'll be back when the loop is over",
-				"i dont thinkthid is wroking",
 				"Bye!",
 			]}
 		/>
 	</pre>
 
-	<h2>Links:</h2>
 	<div class="link-section">
 		<a href="https://discord.com/users/900126154881646634">Discord</a>
 		<a href="https://github.com/NotPiny">Github</a>
 	</div>
 </section>
+
+<h1>
+	Tools
+</h1>
+<h2>
+	Workspace
+</h2>
+<center>
+	<div class="badge" style="width:12.5rem;">
+		<div class="content">
+			<img src={LinuxIcon} class="icon" alt="Linux 'Tux'">
+			<h3 class="label">Linux Mint 21.3</h3>
+		</div>
+	</div>
+	<div class="badge" style="width:12.5rem;">
+		<div class="content">
+			<img src={VSCodeIcon} class="icon" alt="VSCode Logo">
+			<h3 class="label">VSCode</h3>
+		</div>
+	</div>
+	<br>
+	Language: JavaScript
+	<br>
+	Library: Svelte
+</center>
 
 <style>
 	section {
@@ -64,6 +90,20 @@
 
 	h1 {
 		width: 100%;
+		color: white;
+
+		margin-top: 1em;
+	}
+
+	h2 {
+		width: 100%;
+		color: white;
+
+		margin-top: 1em;
+
+		text-align: center;
+
+		font-size: 1.5rem;
 	}
 
 	pre {
@@ -93,5 +133,32 @@
 		color: white;
 
 		padding: 0.5rem 1rem;
+	}
+
+	.badge {
+		height: 2.5rem;
+
+		padding: 0.25rem;
+
+		border-color: white;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 0.5rem;
+	}
+
+	.badge .content {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		gap: 0.5rem;
+
+		height: 100%;
+	}
+
+	.badge h3 {
+		margin: 0;
+		display: inline;
 	}
 </style>

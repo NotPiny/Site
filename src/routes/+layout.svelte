@@ -5,7 +5,7 @@
 
 <svelte:head>
 	<title>Piny - Unknown</title>
-	<meta name="description" content="Changes are if this appearing in your embed its a 404 otherwise no clue how you got this"/>
+	<meta name="description" content="Something went wrong that not even error handling caught"/>
 
 	<link rel="icon" href="https://media.piny.dev/Piny.png"/>
 </svelte:head>
