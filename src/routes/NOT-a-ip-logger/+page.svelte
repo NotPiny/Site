@@ -17,6 +17,11 @@
     })
 </script>
 
+<svelte:head>
+    <title>Anyways i have the fancier text so</title>
+    <meta name="description" content="I'm better than you" />
+</svelte:head>
+
 <h1>Hello Mr or Mrs {ip}</h1>
 <p>So why dont you tell me what its like living in {ipRes?.city_name} no really what is it like ive never been to {ipRes?.region_name} before</p>
 
