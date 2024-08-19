@@ -8,6 +8,8 @@
 		const urlParams = new URLSearchParams(window.location.search);
 		speed = parseInt(urlParams.get('speed') ?? '100');
 	}
+
+	let discordDisplay = 'Discord';
 </script>
 
 <svelte:head>
@@ -48,7 +50,11 @@
 
 	<h2>Links:</h2>
 	<div class="link-section">
-		<a href="https://discord.com/users/900126154881646634">Discord</a>
+		<a
+		href="https://discord.com/users/900126154881646634"
+		on:mouseenter={() => { discordDisplay = 'Discord (@piny.)' }}
+		on:mouseleave={() => { discordDisplay = 'Discord' }}
+		>{discordDisplay}</a>
 		<a href="https://github.com/NotPiny">Github</a>
 	</div>
 </section>
@@ -74,6 +80,8 @@
 		align-items: center;
 
 		font-size: 1.5rem;
+
+		outline: black solid 1px;
 	}
 
 	.link-section {

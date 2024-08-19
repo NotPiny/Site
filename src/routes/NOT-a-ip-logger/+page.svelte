@@ -22,7 +22,7 @@
     <meta name="description" content="I'm better than you" />
 </svelte:head>
 
-<h1>Hello Mr or Mrs {ip}</h1>
+<h1>Hello Mx {ip}</h1>
 <p>So why dont you tell me what its like living in {ipRes?.city_name} no really what is it like ive never been to {ipRes?.region_name} before</p>
 
 <p>Oh and by the way your IP address is {ip} if you havent already noticed that i have your ip now</p>

@@ -16,7 +16,7 @@
             id: 2,
             name: "piny.dev",
             category: "paused",
-            description: "This website your on right now.",
+            description: "This website you're on right now.",
             source: "https://github.com/NotPiny/Site",
             href: "https://piny.dev"
         },
