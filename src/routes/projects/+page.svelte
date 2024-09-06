@@ -60,6 +60,7 @@
      * @param {number} id
      */
     async function projectClicked(id) {
+        if (projects.find(project => project.id === id)?.href) return;
         // Expand out the project box using a animation and then redirect to the project page.
         if (browser) {
             const projectBox = document.getElementById(`project-box-${id}`);
