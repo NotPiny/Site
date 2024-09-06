@@ -31,10 +31,18 @@
         {
             id: 4,
             name: "PinyGames",
-            category: "active",
+            category: "paused",
             description: "A collection of games that I'm working on.",
             source: "https://github.com/NotPiny/GamesSite",
             href: "https://games.piny.dev"
+        },
+        {
+            id: 5,
+            name: 'Candy',
+            category: 'active',
+            description: 'A free and open source discord user app focused on utility',
+            source: 'https://github.com/NotPiny/Candy',
+            href: 'https://candy.piny.dev'
         }
     ];
 
