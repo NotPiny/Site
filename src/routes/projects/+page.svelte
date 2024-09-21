@@ -201,6 +201,8 @@
 
     h2 {
         font-weight: bold;
+
+        font-size: large;
     }
 
     .bl {

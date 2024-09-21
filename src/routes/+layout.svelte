@@ -18,7 +18,8 @@
 	</main>
 
 	<footer>
-		<p>Made with ❤️ (and svelte) by Piny</p>
+		<p style="margin: 0;">Icons from <a href="https://tabler.io/icons">Tabler</a> + <a href="https://fonts.google.com/icons">Material symbols</a></p>
+		<p style="margin-top: 0;">Made with ❤️ (and svelte) by Piny</p>
 	</footer>
 </div>
 
