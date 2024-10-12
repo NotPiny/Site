@@ -21,7 +21,7 @@
     async function idToURI(id) {
         async function getSource() {
             const dev = import.meta.env.DEV;
-            const urlTemplate = dev ? `http://localhost:5173/bookmarklets/source/bookmarklet/[_ID_].js` : `https://cdn.jsdelivr.net/gh/NotPiny/Site/bookmarklets/source/bookmarklet/[_ID_].js`;
+            const urlTemplate = dev ? `http://localhost:5173/bookmarklets/source/bookmarklet/[_ID_].js` : `https://cdn.jsdelivr.net/gh/NotPiny/Site/static/bookmarklets/source/bookmarklet/[_ID_].js`;
             const url = urlTemplate.replace("[_ID_]", id);
             const response = await fetch(url);
             const source = await response.text();
