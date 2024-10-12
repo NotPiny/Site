@@ -13,10 +13,10 @@
 
 	<h1>Tools / Setup</h1>
 	<p>
-		I use a lot of things however here is some of the main things i use:
+		I use a lot of things; however, here are some of the main things I use:
 	</p>
 	<ul>
-		<li>Linux Mint - Just a overall great operating system</li>
+		<li>Linux Mint - Just an overall great operating system</li>
 		<li>Visual Studio Code - My main code editor</li>
 		<li>GitHub - Where I host my code</li>
 		<li>Vercel - Where I deploy my sites</li>
@@ -28,11 +28,11 @@
 	<p>
 		Now it's time for some of my interests because why not. I like games, coding, and music. I play a lot of games, mostly Minecraft and Fortnite, but I also play other games like Rocket League.
 		<br/><br/>
-		Music: I listen to a lot of music, but according to youtube music i listen to 46% indie, 13% pop, 10% rock, 2% french indie???, and 1% electronic dance.
+		Music: I listen to a lot of music, but according to YouTube Music, I listen to 46% indie, 13% pop, 10% rock, 2% French indie???, and 1% electronic dance.
 		<br/><br/>
 		Games: I play a few games, mostly Minecraft and Fortnite + Rocket League. I also play stuff like roblox and random games on steam occasionally.
 		<br/><br/>
-		Computers: I like computers and stuff related to them. I run Linux Mint on my main computer and have a dualbooted (SteamOS + Windows 10) SteamDeck OLED (1TB) for games that don't work on Linux (I'm looking at you roblox / minecraft (bedrock)) and stuff like rocket league where i pefer to play on a controller.
+		Computers: I like computers and stuff related to them. I run Linux Mint on my main computer and have a dual-booted (SteamOS + Windows 10) SteamDeck OLED (1TB) for games that don't work on Linux (I'm looking at you Roblox / Minecraft (Bedrock)) and stuff like Rocket League where I prefer to play on a controller.
 	</p>
 </div>
 

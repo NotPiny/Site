@@ -23,6 +23,7 @@
 	"type": "module",
 	"dependencies": {
 		"@fontsource/poppins": "^5.0.8",
-		"axios": "^1.6.8"
+		"axios": "^1.6.8",
+		"monaco-editor": "^0.52.0"
 	}
 }

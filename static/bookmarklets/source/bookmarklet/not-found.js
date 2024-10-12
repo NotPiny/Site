@@ -1,0 +1,1 @@
+alert("The bookmarklet you are looking for was not found.");

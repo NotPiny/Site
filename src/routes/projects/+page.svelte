@@ -39,10 +39,18 @@
         {
             id: 5,
             name: 'Candy',
-            category: 'active',
+            category: 'paused',
             description: 'A free and open source discord user app focused on utility',
             source: 'https://github.com/NotPiny/Candy',
             href: 'https://candy.piny.dev'
+        },
+        {
+            id: 6,
+            name: 'PTools',
+            category: 'paused',
+            description: 'A collection of tools that I\'m working on.',
+            source: 'https://github.com/NotPiny/Tools',
+            href: '/tools'
         }
     ];
 
