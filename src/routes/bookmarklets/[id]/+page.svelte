@@ -63,7 +63,7 @@
         }
 
         bookmarklet.uri = await idToURI(bookmarklet.id);
-        const source = await fetch(import.meta.env.DEV ? `http://localhost:5173/bookmarklets/source/raw/${bookmarklet.id}.js` : `https://cdn.jsdelivr.net/gh/NotPiny/Site/bookmarklets/source/raw/${bookmarklet.id}.js`);
+        const source = await fetch(import.meta.env.DEV ? `http://localhost:5173/bookmarklets/source/raw/${bookmarklet.id}.js` : `https://cdn.jsdelivr.net/gh/NotPiny/Site/static/bookmarklets/source/raw/${bookmarklet.id}.js`);
         initiateMonacoEditor(await source.text());
         sourceReady = true;
     })
