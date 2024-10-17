@@ -62,8 +62,7 @@
 <svelte:head>
 	<title>Piny - Home</title>
 	<meta name="description" content="The home page." />
-
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0" />
+	<link rel="preconnect" href="https://cdn.jsdelivr.net">
 </svelte:head>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -129,9 +128,17 @@
 	on:click={() => {
 		window.location.href = '/projects';
 	}}
-	>Projects <span class="material-symbols-outlined">
-		chevron_right
-		</span>
+	>Projects <span class="material-symbols-outlined" style="
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 2rem;
+		position: relative;
+		bottom: 2.5px;
+		color: rgba(255, 255, 255, 0.7);
+	">
+		>
+	</span>
 	</h1>
 	<div class="project-list">
 		<ul>
@@ -162,7 +169,7 @@
 <div class="action-director" on:click={() => {
 	if (!browser) return;
 	window.location.href = '/about';
-}}><p>About</p> <span class="material-symbols-outlined">chevron_right</span></div>
+}}><p>About</p> ></div>
 <style>
 	section {
 		display: flex;

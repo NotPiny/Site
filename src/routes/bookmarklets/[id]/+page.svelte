@@ -92,6 +92,7 @@
 <svelte:head>
     <title>Piny - Bookmarklets / {bookmarklet.name}</title>
     <meta name="description" content={bookmarklet.description}/>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
 </svelte:head>
 
 <style>

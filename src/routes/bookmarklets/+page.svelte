@@ -101,6 +101,8 @@
 <svelte:head>
     <title>Piny - Bookmarklets</title>
     <meta name="description" content="A collection of bookmarklets that I have made"/>
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
 </svelte:head>
 
 <style>

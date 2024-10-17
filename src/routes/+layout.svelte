@@ -4,9 +4,6 @@
 </script>
 
 <svelte:head>
-	<title>Piny - Unknown</title>
-	<meta name="description" content="Something went wrong that not even error handling caught"/>
-
 	<link rel="icon" href="https://media.piny.dev/Piny.png"/>
 </svelte:head>
 
