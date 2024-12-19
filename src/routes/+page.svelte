@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
 	import githubIcon from '$lib/images/github.svg';
 	import discordIcon from '$lib/images/discord-mark-white.svg';
+	import blueskyIcon from '$lib/images/bsky.svg';
     import { browser } from "$app/environment";
 	let statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f503.svg'; // 🔃
 	let statusEmojiUnicode = '🔃';
@@ -79,6 +80,7 @@
 			<p><pre style="background-color: transparent; outline: none; box-shadow: none;" id="header-subtitle">{headerSubtitle}</pre>
 			<a href="https://github.com/NotPiny" target="_blank"><img src="{githubIcon}" alt="Github Logo" width=26 height=26 unselectable="on" draggable="false" color="#ffffff"></a>
 			<a href="https://discordlookup.com/user/900126154881646634" target="_blank"><img src="{discordIcon}" alt="Discord Logo" width=26 height=26 unselectable="on" draggable="false"/></a>
+			<a href="https://npiny.bsky.social" target="_blank"><img src="{blueskyIcon}" alt="Bluesky Logo" width=26 height=26 unselectable="on" draggable="false" color="#ffffff"></a>
 		</div>
 	</div>
 
