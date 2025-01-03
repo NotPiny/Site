@@ -18,7 +18,8 @@
 		'Hoping nothing breaks in my sleep',
 		'Tinkering with designs',
 		'Designer at times, Artist at other times',
-		'Random person on the web'
+		'Random person on the web',
+		'I use arch btw'
 	]
 
 	let headerSubtitleFull = subtitlePool[Math.floor(Math.random() * subtitlePool.length)];

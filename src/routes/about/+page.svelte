@@ -16,12 +16,13 @@
 		I use a lot of things; however, here are some of the main things I use:
 	</p>
 	<ul>
-		<li>Linux Mint - Just an overall great operating system</li>
+		<li>Arch Linux - Pretty cool operating system if i do say so myself</li>
 		<li>Visual Studio Code - My main code editor</li>
 		<li>GitHub - Where I host my code</li>
 		<li>Vercel - Where I deploy my sites</li>
 		<li>Discord.js - For making Discord bots</li>
 		<li>Svelte(kit) - For making websites</li>
+		<li><small class="font-size: 0.7em">i use arch btw</small></li>
 	</ul>
 
 	<h1>Interests</h1>
@@ -32,16 +33,16 @@
 		<br/><br/>
 		Games: I play a few games, mostly Minecraft and Fortnite + Rocket League. I also play stuff like roblox and random games on steam occasionally.
 		<br/><br/>
-		Computers: I like computers and stuff related to them. I run Linux Mint on my main computer and have a dual-booted (SteamOS + Windows 10) SteamDeck OLED (1TB) for games that don't work on Linux (I'm looking at you Roblox / Minecraft (Bedrock)) and stuff like Rocket League where I prefer to play on a controller.
+		Computers: I like computers and stuff related to them. I run Arch Linux on my main computer and have a dual-booted (SteamOS + Windows 10) SteamDeck OLED (1TB) for games that don't work on Linux (I'm looking at you Minecraft Bedrock / Fortnite) and stuff like Rocket League where I prefer to play on a controller.
 	</p>
 </div>
 
 <script>
     import { onMount } from "svelte";
 
-	let daalbotGuildCount = 73; // Not gonna be fully up-to-date, but it's just a placeholder while fetching the real value from the API later on
+	let daalbotGuildCount = 84; // Not gonna be fully up-to-date, but it's just a placeholder while fetching the real value from the API later on
 	
-	onMount(() => {
+	onMount(() => { // Doesnt work?? / Look into
 		fetch("https://api.daalbot.xyz/get/general/serverAmount")
 			.then(res => res.text())
 			.then(data => {
