@@ -8,7 +8,7 @@
 
     onMount(async () => {
         // Set the IP address to the users IP address.
-        ipRes = await fetch("https://ifconfig.co/json").then(res => res.json());
+        ipRes = await fetch("/api/get-ip").then(res => res.json());
     })
 </script>
 
