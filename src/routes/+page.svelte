@@ -3,6 +3,7 @@
 	import githubIcon from '$lib/images/github.svg';
 	import discordIcon from '$lib/images/discord-mark-white.svg';
 	import blueskyIcon from '$lib/images/bsky.svg';
+	import clockIcon from '$lib/images/clock.svg';
     import { browser } from "$app/environment";
 	let statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f503.svg'; // 🔃
 	let statusEmojiUnicode = '🔃';
@@ -19,7 +20,9 @@
 		'Tinkering with designs',
 		'Designer at times, Artist at other times',
 		'Random person on the web',
-		'I use arch btw'
+		'I use arch btw',
+		'Writes code that breaks itself',
+		'Having fun around the sheep'
 	]
 
 	let headerSubtitleFull = subtitlePool[Math.floor(Math.random() * subtitlePool.length)];
@@ -92,6 +95,15 @@
 		</div>
 		<div class="header-description">
 			<p><pre style="background-color: transparent; outline: none; box-shadow: none;" id="header-subtitle">{headerSubtitle}</pre>
+			<a href="https://time.is/London" target="_blank" class="labelled">
+				<img src="{clockIcon}" alt="Clock Icon" width=26 height=26 unselectable="on" draggable="false" color="#ffffff">
+				<p>{new Date().toLocaleTimeString('en-GB', {
+					timeZone: 'Europe/London',
+					hour: '2-digit',
+					hour12: false,
+					minute: '2-digit'
+				})}</p>
+			</a>
 			<a href="https://github.com/NotPiny" target="_blank"><img src="{githubIcon}" alt="Github Logo" width=26 height=26 unselectable="on" draggable="false" color="#ffffff"></a>
 			<a href="https://discordlookup.com/user/900126154881646634" target="_blank"><img src="{discordIcon}" alt="Discord Logo" width=26 height=26 unselectable="on" draggable="false"/></a>
 			<a href="https://bsky.app/profile/piny.dev" target="_blank"><img src="{blueskyIcon}" alt="Bluesky Logo" width=26 height=26 unselectable="on" draggable="false" color="#ffffff"></a>
@@ -255,10 +267,34 @@
 		justify-content: center;
 		align-items: center;
 
+		gap: .5rem;
+
 		border-radius: 50%;
 		background-color: #2f2f2f;
 
 		padding: 1rem;
+	}
+
+	.header-description a.labelled {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		gap: .5rem;
+
+		border-radius: 5%;
+		background-color: #2f2f2f;
+
+		padding: 1rem;
+	}
+
+	.header-description a p {
+		font-size: 1.5rem;
+		font-weight: bold;
+		color: white;
+
+		margin: 0;
 	}
 
 	.status {
