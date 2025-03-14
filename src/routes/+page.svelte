@@ -4,6 +4,7 @@
 	import discordIcon from '$lib/images/discord-mark-white.svg';
 	import blueskyIcon from '$lib/images/bsky.svg';
 	import clockIcon from '$lib/images/clock.svg';
+	import playlistIcon from '$lib/images/playlist.svg';
     import { browser } from "$app/environment";
 	let statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f503.svg'; // 🔃
 	let statusEmojiUnicode = '🔃';
@@ -25,6 +26,55 @@
 		'Having fun around the sheep'
 	]
 
+	let currentTime = new Date().toLocaleTimeString('en-GB', {
+		timeZone: 'Europe/London',
+		hour: '2-digit',
+		hour12: false,
+		minute: '2-digit'
+	});
+
+	// Wait until the end of the current minute
+	let timeToWait = 60000 - (new Date().getTime() % 60000);
+
+	setTimeout(() => {
+		currentTime = new Date().toLocaleTimeString('en-GB', {
+			timeZone: 'Europe/London',
+			hour: '2-digit',
+			hour12: false,
+			minute: '2-digit'
+		});
+		setInterval(() => {
+			currentTime = new Date().toLocaleTimeString('en-GB', {
+				timeZone: 'Europe/London',
+				hour: '2-digit',
+				hour12: false,
+				minute: '2-digit'
+			});
+		}, 60000);
+	}, timeToWait);
+
+	let currentMusicActivity = {};
+	/**
+	 * @type {{state: {id: string, title: string, author: string, cover: string, duration: number}, time: number, type: number}}
+	*/
+	let currentMusicData = {
+        state: {
+            id: "",
+            title: "",
+            author: "",
+            cover: "",
+			duration: 0
+        },
+        time: 0,
+        type: 0
+    };
+	let currentMusicDataUpdated = false;
+	/**
+	 * @type {{ history: Array<{state: {id: string, title: string, author: string, cover: string, duration: number}, time: number, type: number}> }}
+	 */
+	let musicHistory = { history: [] };
+	let isListening = false;
+
 	let headerSubtitleFull = subtitlePool[Math.floor(Math.random() * subtitlePool.length)];
 	let headerSubtitle = ' '.repeat(headerSubtitleFull.length);
 
@@ -39,41 +89,90 @@
 				await new Promise((resolve) => setTimeout(resolve, speed));
 				headerSubtitle = headerSubtitle.substring(0, i) + headerSubtitleFull[i] + headerSubtitle.substring(i + 1);
 			}
-		})()
+		})();
 
-		if (window.location.hostname === 'localhost') {
-			// If we're on localhost, we're probably online developing, so we don't need to fetch the status
-			statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f315.svg'; // 🌕
-			statusEmojiUnicode = '🌕';
-			statusText = 'Online';
-			return;
-		}
-		
-		const response = await fetch('https://api.statusbadges.me/presence/900126154881646634');
-		const data = await response.json();
+		// Create WebSocket connection.
+		const socket = new WebSocket("wss://api.lanyard.rest/socket");
 
-		switch (data.status) {
-			case 'online':
-				statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f315.svg'; // 🌕
-				statusEmojiUnicode = '🌕';
-				statusText = 'Online';
-				break;
-			case 'idle':
-				statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f319.svg'; // 🌙
-				statusEmojiUnicode = '🌙';
-				statusText = 'Idle';
-				break;
-			case 'dnd':
-				statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6ab.svg'; // 🚫
-				statusEmojiUnicode = '🚫';
-				statusText = 'Do Not Disturb';
-				break;
-			case 'offline':
-				statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f311.svg'; // 🌑
-				statusEmojiUnicode = '🌑';
-				statusText = 'Offline';
-				break;
-		}
+		// Listen for messages
+		socket.addEventListener("message", (event) => {
+			console.log("Message from server ", event.data);
+
+			const data = JSON.parse(event.data);
+
+			if (data.op == 1) {
+				socket.send(JSON.stringify({
+					op: 2,
+					d: {
+						subscribe_to_id: "900126154881646634"
+					}
+				}))
+
+				setInterval(() => {
+					socket.send(JSON.stringify({
+						op: 3
+					}))
+				}, data.d.heartbeat_interval)
+			}
+
+			const status = data.d?.discord_status;
+
+			switch (status) {
+				case 'online':
+					statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f315.svg'; // 🌕
+					statusEmojiUnicode = '🌕';
+					statusText = 'Online';
+					break;
+				case 'idle':
+					statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f319.svg'; // 🌙
+					statusEmojiUnicode = '🌙';
+					statusText = 'Idle';
+					break;
+				case 'dnd':
+					statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6ab.svg'; // 🚫
+					statusEmojiUnicode = '🚫';
+					statusText = 'Do Not Disturb';
+					break;
+				case 'offline':
+					statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f311.svg'; // 🌑
+					statusEmojiUnicode = '🌑';
+					statusText = 'Offline';
+					break;
+			}
+
+			// @ts-ignore
+			currentMusicActivity = data.d?.activities?.find(activity => activity.name == 'YouTube Music'); // Youtube Music desktop app discord activity
+
+			if (!currentMusicActivity) return isListening = false;
+			else isListening = true;
+
+			(async()=>{
+				const mhReq = await fetch(`/api/music/history`);
+				musicHistory = await mhReq.json();
+
+				// @ts-ignore
+				currentMusicData = musicHistory.history.find(data => data.state.title == currentMusicActivity.details) ?? {
+					state: {
+						id: "",
+						title: "",
+						author: "",
+						cover: "",
+						duration: 0
+					},
+					time: 0,
+					type: 0
+				};
+
+				if (!currentMusicData.state.id) {
+					currentMusicDataUpdated = false;
+				}
+
+				console.log(currentMusicData);
+
+				const musicWidget = document.querySelector('.ytm-card');
+				if (!musicWidget) return;
+			})();
+		});
 	});
 </script>
 
@@ -95,18 +194,26 @@
 		</div>
 		<div class="header-description">
 			<p><pre style="background-color: transparent; outline: none; box-shadow: none;" id="header-subtitle">{headerSubtitle}</pre>
+		</div>
+		<div class="info-row">
 			<a href="https://time.is/London" target="_blank" class="labelled">
 				<img src="{clockIcon}" alt="Clock Icon" width=26 height=26 unselectable="on" draggable="false" color="#ffffff">
-				<p>{new Date().toLocaleTimeString('en-GB', {
-					timeZone: 'Europe/London',
-					hour: '2-digit',
-					hour12: false,
-					minute: '2-digit'
-				})}</p>
+				<p>{currentTime}</p>
 			</a>
 			<a href="https://github.com/NotPiny" target="_blank"><img src="{githubIcon}" alt="Github Logo" width=26 height=26 unselectable="on" draggable="false" color="#ffffff"></a>
 			<a href="https://discordlookup.com/user/900126154881646634" target="_blank"><img src="{discordIcon}" alt="Discord Logo" width=26 height=26 unselectable="on" draggable="false"/></a>
 			<a href="https://bsky.app/profile/piny.dev" target="_blank"><img src="{blueskyIcon}" alt="Bluesky Logo" width=26 height=26 unselectable="on" draggable="false" color="#ffffff"></a>
+			{#if isListening}
+				<a href="https://music.youtube.com/watch?v={currentMusicData.state.id}" target="_blank" class="labelled ytm-card" style="background-image: linear-gradient( rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25) ), url({currentMusicData.state.cover.replace('w60-h60', 'w500-h500')}); background-size: cover; background-position: center;">
+					<img src={playlistIcon} alt="Music Icon" width=26 height=26 unselectable="on" draggable="false" color="#ffffff">
+					<p>{currentMusicData.state.title} - {currentMusicData.state.author}</p>
+				</a>
+			{:else}
+				<a href="#m" class="labelled ytm-card">
+					<img src={playlistIcon} alt="Music Icon" width=26 height=26 unselectable="on" draggable="false" color="#ffffff">
+					<p>Not listening</p>
+				</a>
+			{/if}
 		</div>
 	</div>
 
@@ -262,7 +369,16 @@
 		gap: 1rem;
 	}
 
-	.header-description a {
+	.info-row {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		gap: 1rem;
+	}
+
+	.info-row a {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -275,7 +391,7 @@
 		padding: 1rem;
 	}
 
-	.header-description a.labelled {
+	.info-row a.labelled {
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
@@ -289,12 +405,19 @@
 		padding: 1rem;
 	}
 
-	.header-description a p {
+	.info-row a p {
 		font-size: 1.5rem;
 		font-weight: bold;
 		color: white;
 
 		margin: 0;
+	}
+
+	.ytm-card {
+		height: 2em !important; /* It will steal all the space if we don't limit it */
+
+		/* Outline the text for better readability */
+		text-shadow: 0 0 5px black;
 	}
 
 	.status {
