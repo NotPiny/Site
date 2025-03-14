@@ -209,7 +209,8 @@
 					<p>{currentMusicData.state.title} - {currentMusicData.state.author}</p>
 				</a>
 			{:else}
-				<a href="#m" class="labelled ytm-card">
+				<!-- Must be a valid link 😭 -->
+				<a href="/" class="labelled ytm-card">
 					<img src={playlistIcon} alt="Music Icon" width=26 height=26 unselectable="on" draggable="false" color="#ffffff">
 					<p>Not listening</p>
 				</a>
