@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
 
     /**
-     * @type {{ip: string, city_name: string, region_name: string}}
+     * @type {{ip: string, city: string, region_name: string}}
      */
     let ipRes;
 

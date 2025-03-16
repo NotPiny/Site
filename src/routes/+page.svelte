@@ -5,10 +5,12 @@
 	import blueskyIcon from '$lib/images/bsky.svg';
 	import clockIcon from '$lib/images/clock.svg';
 	import playlistIcon from '$lib/images/playlist.svg';
+	import desktopStatusIcon from '$lib/images/status/desktop.svg';
+	import mobileStatusIcon from '$lib/images/status/mobile.svg';
+	import offlineStatusIcon from '$lib/images/status/offline.svg';
     import { browser } from "$app/environment";
-	let statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f503.svg'; // 🔃
-	let statusEmojiUnicode = '🔃';
-	let statusText = 'Loading...';
+	let desktopStatusIconSVG = '';
+	let mobileStatusIconSVG = '';
 
 	const subtitlePool = [
 		'Hobbyist Web / Bot Developer',
@@ -101,6 +103,8 @@
 	let musicHistory = { history: [] };
 	let isListening = false;
 
+	let discord_status = 'offline';
+
 	setInterval(() => {
 		if (!isListening || !currentMusicActivity?.timestamps?.start) return;
 		
@@ -119,12 +123,21 @@
 		const urlParams = new URLSearchParams(window.location.search);
 		speed = parseInt(urlParams.get('speed') ?? '100');
 
-		(async() =>{ // Move the subtitle to a different function so it doesn't block the rest of the code
+		(async() =>{ // Move the subtitle and api requests to a different function so it doesn't block the rest of the code
+			fetch(desktopStatusIcon).then(res => res.text()).then(text => {
+				desktopStatusIconSVG = text;
+			});
+
+			fetch(mobileStatusIcon).then(res => res.text()).then(text => {
+				mobileStatusIconSVG = text;
+			});
+
 			for (let i = 0; i < headerSubtitleFull.length; i++) {
 				await new Promise((resolve) => setTimeout(resolve, speed));
 				headerSubtitle = headerSubtitle.substring(0, i) + headerSubtitleFull[i] + headerSubtitle.substring(i + 1);
 			}
 		})();
+
 
 		// Create WebSocket connection.
 		const socket = new WebSocket("wss://api.lanyard.rest/socket");
@@ -148,30 +161,31 @@
 				}, data.d.heartbeat_interval)
 			}
 
-			const status = data.d?.discord_status;
+			discord_status = data.d.discord_status;
 
-			switch (status) {
-				case 'online':
-					statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f315.svg'; // 🌕
-					statusEmojiUnicode = '🌕';
-					statusText = 'Online';
-					break;
-				case 'idle':
-					statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f319.svg'; // 🌙
-					statusEmojiUnicode = '🌙';
-					statusText = 'Idle';
-					break;
-				case 'dnd':
-					statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6ab.svg'; // 🚫
-					statusEmojiUnicode = '🚫';
-					statusText = 'Do Not Disturb';
-					break;
-				case 'offline':
-					statusEmoji = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f311.svg'; // 🌑
-					statusEmojiUnicode = '🌑';
-					statusText = 'Offline';
-					break;
-			}
+			/**
+			 * @type {HTMLSpanElement | null}
+			 */
+			const statusElement = document.querySelector('.status');
+			if (statusElement) (async() => {
+				statusElement.innerHTML = '';
+				let targetColour = '';
+
+				if (data.d.discord_status == 'online') targetColour = '#23a55a';
+				if (data.d.discord_status == 'dnd') targetColour = '#f23f43';
+				if (data.d.discord_status == 'idle') targetColour = '#f0b232';
+
+				if (data.d.discord_status == 'offline')
+					return statusElement.innerHTML = `<img src="${offlineStatusIcon}" alt="Offline Status Indicator" unselectable="on" draggable="false">`;
+
+				while (!desktopStatusIconSVG || !mobileStatusIconSVG) await new Promise((resolve) => setTimeout(resolve, 100)); // Wait for the icons to load
+
+				if (data.d.active_on_discord_desktop)
+					statusElement.innerHTML += desktopStatusIconSVG.replace('currentColor', targetColour);
+
+				if (data.d.active_on_discord_mobile)
+					statusElement.innerHTML += mobileStatusIconSVG.replace('currentColor', targetColour);
+			})();
 
 			// @ts-ignore
 			currentMusicActivity = data.d?.activities?.find(activity => activity.name == 'YouTube Music'); // Youtube Music desktop app discord activity
@@ -244,6 +258,8 @@
 	<title>Piny - Home</title>
 	<meta name="description" content="The home page." />
 	<link rel="preconnect" href="https://cdn.jsdelivr.net">
+	<link rel="preconnect" href="https://api.lanyard.rest">
+	<link rel="preconnect" href="https://media.piny.dev">
 </svelte:head>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -251,9 +267,8 @@
 	<div class="header">
 		<div class="header-name">
 			<h1>Piny</h1>
-			<span class="status">
-				<img src="{statusEmoji}" alt="{statusEmojiUnicode}" width="30" height="30" unselectable="on" draggable="false">
-				{statusText}
+			<span class="status" title="Discord Status Indicator (Currently {discord_status})">
+				<img src={offlineStatusIcon} alt="Offline Status Indicator" unselectable="on" draggable="false">
 			</span>
 		</div>
 		<div class="header-description">
@@ -472,7 +487,7 @@
 
 		gap: .5rem;
 
-		border-radius: 5%;
+		border-radius: 5px;
 		background-color: #2f2f2f;
 
 		padding: 1rem;
@@ -510,6 +525,11 @@
 		gap: .5rem;
 
 		font-weight: bold;
+	}
+
+	.status * {
+		width: 2.5rem !important;
+		height: 2.5rem !important;
 	}
 
 	.project-list {
