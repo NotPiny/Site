@@ -97,6 +97,8 @@
     };
 	let currentMusicDataUpdated = false;
 	let currentMusicProgress = 0;
+	let currentMusicProgressHuman = 0; // In seconds (for 1:23/4:56 formatting)
+
 	/**
 	 * @type {{ history: Array<{state: {id: string, title: string, author: string, cover: string, duration: number}, time: number, type: number}> }}
 	 */
@@ -112,6 +114,8 @@
 		const durationMs = currentMusicActivity.timestamps.end - currentMusicActivity.timestamps.start;
 
 		currentMusicProgress = Math.min((elapsed / durationMs) * 100, 100);
+
+		currentMusicProgressHuman = Math.floor(elapsed / 1000);
 	}, 500);
 
 	let headerSubtitleFull = subtitlePool[Math.floor(Math.random() * subtitlePool.length)];
@@ -235,7 +239,6 @@
 
 					currentMusicDataUpdated = true;
 					console.debug('Updated music data:', currentMusicData);
-
 				} catch (error) {
 					console.error('Error updating music data:', error);
 					setTimeout(() => updateMusicData(rd + 750), rd + Math.random() * 500);
@@ -289,10 +292,12 @@
 				style="background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), 
 					linear-gradient(90deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.9) {currentMusicProgress}%), 
 					url({currentMusicData.state.cover}) center/cover;">
-				<!-- <img src={playlistIcon} alt="Music Icon" width=26 height=26 unselectable="on" draggable="false" color="#ffffff"> -->
 				<div style="display: flex; flex-direction: column;">
 					<p>{currentMusicData.state.title.substring(0, 32)}{currentMusicData.state.title.length > 32 ? '...' : ''}</p>
-					<p style="font-size: medium; font-weight: normal; color: #a4a4a4;">{currentMusicData.state.author}</p>
+					<div class="ytm-card-meta">
+						<p>{currentMusicData.state.author}</p>
+						<p>{Math.floor(currentMusicProgressHuman / 60)}:{(currentMusicProgressHuman % 60).toString().length == 2 ? currentMusicProgressHuman % 60 : `0${currentMusicProgressHuman % 60}`}/{Math.floor(currentMusicData.state.duration / 60)}:{(currentMusicData.state.duration % 60).toString().length == 2 ? currentMusicData.state.duration % 60 : `0${currentMusicData.state.duration % 60}`}</p> 
+					</div>
 				</div>
 			</a>
 			{:else}
@@ -511,6 +516,20 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+	}
+
+	.ytm-card-meta {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.ytm-card-meta p {
+		font-size: 1.25rem !important;
+		font-weight: lighter !important;
+		color: #808080 !important;
+
+		margin: 0;
 	}
 
 	.status {
