@@ -295,8 +295,8 @@
 				<div style="display: flex; flex-direction: column;">
 					<p>{currentMusicData.state.title.substring(0, 32)}{currentMusicData.state.title.length > 32 ? '...' : ''}</p>
 					<div class="ytm-card-meta">
-						<p>{currentMusicData.state.author}</p>
-						<p>{Math.floor(currentMusicProgressHuman / 60)}:{(currentMusicProgressHuman % 60).toString().length == 2 ? currentMusicProgressHuman % 60 : `0${currentMusicProgressHuman % 60}`}/{Math.floor(currentMusicData.state.duration / 60)}:{(currentMusicData.state.duration % 60).toString().length == 2 ? currentMusicData.state.duration % 60 : `0${currentMusicData.state.duration % 60}`}</p> 
+						<p style="margin-right: 1em;">{currentMusicData.state.author}</p>
+						<p>{Math.floor(currentMusicProgressHuman / 60)}:{(currentMusicProgressHuman % 60).toString().length == 2 ? currentMusicProgressHuman % 60 : `0${currentMusicProgressHuman % 60}`}/{Math.floor(currentMusicData.state.duration / 60)}:{(currentMusicData.state.duration % 60).toString().length == 2 ? currentMusicData.state.duration % 60 : `0${currentMusicData.state.duration % 60}`}
 					</div>
 				</div>
 			</a>
