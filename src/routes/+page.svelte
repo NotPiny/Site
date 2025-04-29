@@ -8,7 +8,7 @@
 	import desktopStatusIcon from '$lib/images/status/desktop.svg';
 	import mobileStatusIcon from '$lib/images/status/mobile.svg';
 	import offlineStatusIcon from '$lib/images/status/offline.svg';
-    import { browser } from "$app/environment";
+	import { browser } from "$app/environment";
 	let desktopStatusIconSVG = '';
 	let mobileStatusIconSVG = '';
 
@@ -25,7 +25,8 @@
 		'Random person on the web',
 		'I use arch btw',
 		'Writes code that breaks itself',
-		'Having fun around the sheep'
+		'Having fun around the sheep',
+		'ITS PRONOUNCED /pɪn iː/'
 	]
 
 	let currentTime = new Date().toLocaleTimeString('en-GB', {
