@@ -26,7 +26,8 @@
 		'I use arch btw',
 		'Writes code that breaks itself',
 		'Having fun around the sheep',
-		'ITS PRONOUNCED /pɪn iː/'
+		'ITS PRONOUNCED /pɪn iː/',
+		'God knows I'll live forever or diе in the attempt'
 	]
 
 	let currentTime = new Date().toLocaleTimeString('en-GB', {
