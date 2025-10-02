@@ -86,7 +86,7 @@
 <svelte:head>
 	<link rel="icon" href={favicon} />
 	<title>Piny</title>
-	<meta name="description" content="Hi, I'm Piny, a full-stack JavaScript developer. I started actually programming in April 2022 when a big Discord bot introduced NFTs. I thought it can't be that hard to make a bot that doesn't suck, so I started learning JavaScript with Discord.js. I made DaalBot, which is still one of my main projects to this day with over 80 servers. During my time, I've also done a few side projects, but I'm not going to explain that here. You should check out my projects page for that." />
+	<meta name="description" content="Heya! I'm Ember (or Piny[/pɪn iː/]), a hobbyist developer and (somewhat) graphic designer, and well this is my site." />
 </svelte:head>
 
 <nav>
